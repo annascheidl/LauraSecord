@@ -1,0 +1,22 @@
+{
+  "name": "laurasecord",
+  "version": "1.0.0",
+  "description": "Multi-Platform user ineraction",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annascheidl/LauraSecord.git"
+  },
+  "author": "Quinlan Walker, Anna Scheidl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annascheidl/LauraSecord/issues"
+  },
+  "homepage": "https://github.com/annascheidl/LauraSecord#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
