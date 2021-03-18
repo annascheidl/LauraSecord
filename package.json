@@ -1,10 +1,11 @@
 {
   "name": "laurasecord",
   "version": "1.0.0",
-  "description": "Multi-Platform user ineraction",
+  "description": "Multi-Platform user interaction",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .node_modules/networked-aframe/server/easyrtc-server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,12 @@
   },
   "homepage": "https://github.com/annascheidl/LauraSecord#readme",
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.17.1",
+    "networked-aframe": "^0.7.0",
+    "socket.io": "^4.0.0",
+    "socket.io-client": "^4.0.0",
+    "websocket": "^1.0.33",
+    "ws": "^7.4.4"
+  },
+  "devDependencies": {}
 }

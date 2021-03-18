@@ -1,32 +1,12 @@
-<!DOCTYPE html>
 <html>
-    <head>
-      <title>Laura Secord - Homepage</title>
-      <meta name="description" content="Hello, WebVR! - A-Frame">
-
-      <script src="/js/aframe.min.js"></script>
-      <!-- loading in our js file with custom component -->
-      <script src="/js/spinning-effect.js"></script>
-      <script src="/js/aframe-environment-component.min.js"></script>
-
-    </head>
+    <head></head>
     <body>
-      <a-scene start-experience>
-        <a-assets timeout="10000"></a-assets>
-
-
-        <a-entity camera wasd-controls look-controls position="0 1.6 0">
-        <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
-        <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
-        </a-entity>
-        <a-entity environment="preset:dream"></a-entity>
-
-        <a-plane position="0 5 -100" rotation="0 0 0" color="#163832" scale="202 50 10"></a-plane>
-        <a-plane position="0 5 100" rotation="180 0 0" color="#163832" scale="202 50 10"></a-plane>
-        <a-plane position="100 5 0" rotation="180 90 0" color="#163832" scale="202 50 10"></a-plane>
-        <a-plane position="-100 5 0" rotation="-180 -90 0" color="#163832" scale="202 50 10"></a-plane>
-
-      </a-scene>
-
+        <p>Choose which role you will have.</p>
+        <ul>
+            <li><a href="/lauraSecordPlayer.html">Laura Secord</a></li>
+            <li><a href="/soldierPlayer.html">Soldier</a></li>
+        </ul>
     </body>
 </html>
+
+
