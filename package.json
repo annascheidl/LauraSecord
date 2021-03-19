@@ -26,7 +26,8 @@
     "express": "^4.17.1",
     "perlin-noise": "0.0.1",
     "simplex-noise": "^2.4.0",
-    "three": "^0.126.1"
+    "three": "^0.126.1",
+    "wavefront-obj-parser": "^2.0.1"
   },
   "devDependencies": {
     "install-peers": "^1.0.3"

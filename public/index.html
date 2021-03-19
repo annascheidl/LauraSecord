@@ -18,6 +18,33 @@
           return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
         }
 
+        function SpawnObject(value){
+          var newObj;
+          switch(value){
+            case 0:
+              //box
+              newObj = document.createElement('a-box');
+              break;
+            case 1:
+              //sphere
+              newObj = document.createElement('a-sphere');
+              break;
+            case 2:
+              //cylinder
+              newObj = document.createElement('a-cylinder');
+              break;
+            case 3:
+              //torus
+              newObj = document.createElement('a-torus');
+              break;
+            default:
+              //empty space
+              newObj = 'null'
+              break;
+          }
+          return newObj
+        }
+
         function getHeightData(img,scale) {
      
           if (scale == undefined) scale=1;
@@ -70,6 +97,7 @@
             img.src='assets/Heightmap_100.jpg';
             var data = getHeightData(img);
 
+            var envObj;
             //console.log('confirm');
             // plane
             var geometry = new THREE.PlaneGeometry(100,100,99,99);
@@ -82,28 +110,41 @@
             });
             plane = new THREE.Mesh( geometry, material );
 
-            var min = 50;
+            //var minTest = 50;
             //set height of vertices
             for ( var i = 0; i<plane.geometry.vertices.length; i++ ) {
-                plane.geometry.vertices[i].z = (data[i]*0.3);
-                plane.geometry.vertices[i].y*=10;
-                plane.geometry.vertices[i].x*=10;
+              plane.geometry.vertices[i].z = (data[i]*0.3);
+              plane.geometry.vertices[i].y*=10;
+              plane.geometry.vertices[i].x*=10;
 
+              envObj = SpawnObject(parseInt(Math.random()*70));
+              if(envObj=='null'){
+                console.log('skip');
+              }
+              else{
+                envObj.setAttribute('position', convertCords(plane.geometry.vertices[i]));
+                document.querySelector('a-scene').appendChild(envObj);
+                envObj.addEventListener('loaded', function () {
+                  console.log('envObj attached');
+                });
+              }
             }
-            var testBox1 = document.querySelector('#testBox1')
-            var testBox2 = document.querySelector('#testBox2')
-            var testBox3 = document.querySelector('#testBox3')
+            var testBox1 = document.querySelector('#testBox1');
+            var testBox2 = document.querySelector('#testBox2');
+            var testBox3 = document.querySelector('#testBox3');
+            //var testObj = document.querySelector('#testObj');
 
 
 
             this.el.setObject3D('mesh', plane);
             this.el.setAttribute('static-body');
             testBox1.setAttribute('position', convertCords(plane.geometry.vertices[500]));
-            testBox2.setAttribute('position', converCords(plane.geometry.vertices[5000]));
-            testBox3.setAttribute('position', converCords(plane.geometry.vertices[8000]));
+            //testObj.setAttribute('position', convertCords(plane.geometry.vertices[505]));
+            testBox2.setAttribute('position', convertCords(plane.geometry.vertices[5000]));
+            testBox3.setAttribute('position', convertCords(plane.geometry.vertices[8000]));
             
-            console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
-            console.log(testBox1.getAttribute('position'));
+            //console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
+            //console.log(testBox1.getAttribute('position'));
           },
         update: function () {
             //var planeEntity = document.querySelector('a-plane');
@@ -138,10 +179,17 @@
           <img id="height-map" src="assets/Heightmap_100.jpg">
           
           <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
+
+          <a-asset-item id="rock-model-one-obj"  response-type="arraybuffer" src="/assets/designRock_1.obj" crossorigin="anonymous"></a-asset-item>
+          <!--a-asset-item id="rock_model_one_mtl"     response-type="arraybuffer" src="/assets/designRock_1.mtl"></a-asset-item-->
+          
+          <a-asset-item id="rock_model_two_obj" response-type="arraybuffer" src="/assets/designRock_2.obj" crossorigin="anonymous"></a-asset-item>
+          <!--a-asset-item id="rock_model_two_mtl"     response-type="arraybuffer" src="/assets/designRock_2.mtl"></a-asset-item-->
+
         
         </a-assets>
 
-        <a-entity camera wasd-controls look-controls position="-500 14.6 -450">
+        <a-entity camera wasd-controls look-controls position="0 20.6 0">
           <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
           <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
         </a-entity>        
@@ -157,7 +205,10 @@
         <a-box id='testBox2' position="-2 0.6 -2" color="#4CC3D9" static-body></a-box>
         <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box>
 
-        <!--a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
+        <!--a-entity id="testObj" position="-500 25.6 -450"  src="#rock-model-one-obj"></a-entity>
+
+        <a-entity id="testObj2" position="-500 25.6 -450" rotation="0 0 0" scale="10 10 10"  obj-model="obj: #rock_model_two_obj"></a-entity>
+        <a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
 
         <a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
       </a-scene>
