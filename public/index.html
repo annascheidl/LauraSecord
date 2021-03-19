@@ -14,6 +14,10 @@
       <!--script src="/js/aframe-map.min.js"></script>
       <--script src="index.js"></script-->
       <script>
+        function convertCords(oldVector){
+          return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
+        }
+
         function getHeightData(img,scale) {
      
           if (scale == undefined) scale=1;
@@ -63,31 +67,47 @@
           init: function () {
             //get height data from img
             var img = new Image();
-            img.src='assets/Heightmap_1000_test.jpg';
+            img.src='assets/Heightmap_100.jpg';
             var data = getHeightData(img);
 
-            console.log('confirm');
+            //console.log('confirm');
             // plane
-            var geometry = new THREE.PlaneGeometry(1000,1000,999,999);
-            var material = new THREE.MeshBasicMaterial({
-              color: 0xff0000,
-              wireframe: true
+            var geometry = new THREE.PlaneGeometry(100,100,99,99);
+            var material = new THREE.MeshStandardMaterial({
+              color: 0xE50096,
+              roughness: 0.1,
+              metalness:0.5,
+              flatShading: true
+              //wireframe: true
             });
             plane = new THREE.Mesh( geometry, material );
 
             var min = 50;
             //set height of vertices
             for ( var i = 0; i<plane.geometry.vertices.length; i++ ) {
-                plane.geometry.vertices[i].z = data[i] - 21;
+                plane.geometry.vertices[i].z = (data[i]*0.3);
+                plane.geometry.vertices[i].y*=10;
+                plane.geometry.vertices[i].x*=10;
+
             }
-            
+            var testBox1 = document.querySelector('#testBox1')
+            var testBox2 = document.querySelector('#testBox2')
+            var testBox3 = document.querySelector('#testBox3')
+
+
 
             this.el.setObject3D('mesh', plane);
             this.el.setAttribute('static-body');
+            testBox1.setAttribute('position', convertCords(plane.geometry.vertices[500]));
+            testBox2.setAttribute('position', converCords(plane.geometry.vertices[5000]));
+            testBox3.setAttribute('position', converCords(plane.geometry.vertices[8000]));
+            
+            console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
+            console.log(testBox1.getAttribute('position'));
           },
         update: function () {
-            var planeEntity = document.querySelector('a-plane');
-            //console.log(planeEntity.geometry.vertices[500+500]);
+            //var planeEntity = document.querySelector('a-plane');
+            //console.log(this.el.getObject3D('mesh').geometry.vertices[0]);
           }
         });
         //function called from user-gesture click
@@ -115,27 +135,31 @@
         
         <a-assets physics="debug: true" timeout="10000">
           
-          <img id="height-map" src="assets/Heightmap_1000_test.jpg">
+          <img id="height-map" src="assets/Heightmap_100.jpg">
           
           <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
         
         </a-assets>
 
-        <a-entity camera wasd-controls look-controls position="0 20 0">
+        <a-entity camera wasd-controls look-controls position="-500 14.6 -450">
           <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
           <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
         </a-entity>        
-       
+        
         <a-entity class="ambient-music" sound="src:#background_music; autoplay:false;"></a-entity>
 
-        <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="100" height="100" depth="100"></a-plane>
-        <a-box position="5 5 -5" color="#4CC3D9" dynamic-body></a-box>
-        <a-box position="-5 5 5" color="#4CC3D9" dynamic-body></a-box>
-        <a-box position="0 5 -5" color="#4CC3D9" dynamic-body></a-box>
-        <a-box position="0 5 5" color="#4CC3D9" dynamic-body></a-box>
-        <a-entity  material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="4" height="4"  static-body></a-entity>
+        <!--a-entity light="type: ambient; color: #CCC"></a-entity-->
+        <a-entity light="type: directional; color: #EEE; intensity: 0.5" position="-1 1 0"></a-entity>
 
-        <!--a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
+        <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="1" height="1" depth="1"></a-plane>
+        
+        <a-box id='testBox1' position="2 0.6 2" color="#4CC3D9" static-body></a-box>
+        <a-box id='testBox2' position="-2 0.6 -2" color="#4CC3D9" static-body></a-box>
+        <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box>
+
+        <!--a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
+
+        <a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
       </a-scene>
 
       
