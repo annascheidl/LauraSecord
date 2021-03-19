@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Laura Secord - Soldier</title>
+      <meta name="description" content="Hello, WebVR! - A-Frame">
+
+      <script src="/js/aframe.min.js"></script>
+      <!-- loading in our js file with custom component -->
+      <script src="/js/aframe-environment-component.min.js"></script>
+      <a-asset-items id="lantern" src="/assets/scene.gltf"></a-asset-items>    </head>
+    <body>
+      <a-scene start-experience>
+        <a-assets timeout="10000"></a-assets>
+
+
+        <a-entity camera wasd-controls look-controls position="0 1.6 0">
+          <a-entity class="Lantern" gltf-model="#lantern" position= "0 0.00001 -0.2" scale="0.001 0.001 0.001"></a-entity>
+            <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
+          </a-entity>
+          <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+          </a-entity>
+
+
+        
+        <a-entity environment="preset:starry"></a-entity>
+
+        <!-- Anna's code here -->
+        <a-plane position="0 5 -100" rotation="0 0 0" color="#163832" scale="202 50 10"></a-plane>
+        <a-plane position="0 5 100" rotation="180 0 0" color="#163832" scale="202 50 10"></a-plane>
+        <a-plane position="100 5 0" rotation="180 90 0" color="#163832" scale="202 50 10"></a-plane>
+        <a-plane position="-100 5 0" rotation="-180 -90 0" color="#163832" scale="202 50 10"></a-plane>
+
+      </a-scene>
+
+    </body>
+</html>

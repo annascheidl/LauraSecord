@@ -1,143 +1,92 @@
-<!DOCTYPE html>
 <html>
-    <head>
-      <title>Laura Secord - Homepage</title>
-      <meta name="description" content="Hello, WebVR! - A-Frame">
-
-      <script src="/js/aframe.min.js"></script>
-      <script src="/js/aframe-environment-component.min.js"></script>
-      <script src="/js/aframe-particle-system-component.min.js"></script>
-      <script src="/js/aframe-physics-system.min.js"></script>
-
-      <link rel="stylesheet" href="/css/user-gesture.css">
-
-      <!--script src="/js/aframe-map.min.js"></script>
-      <--script src="index.js"></script-->
-      <script>
-        function getHeightData(img,scale) {
-     
-          if (scale == undefined) scale=1;
-          
-              var canvas = document.createElement( 'canvas' );
-              canvas.width = img.width;
-              canvas.height = img.height;
-              var context = canvas.getContext( '2d' );
-      
-              var size = img.width * img.height;
-              var data = new Float32Array( size );
-      
-              context.drawImage(img,0,0);
-      
-              for ( var i = 0; i < size; i ++ ) {
-                  data[i] = 0
-              }
-      
-              var imgd = context.getImageData(0, 0, img.width, img.height);
-              var pix = imgd.data;
-      
-              var j=0;
-              for (var i = 0; i<pix.length; i +=4) {
-                  var all = pix[i]+pix[i+1]+pix[i+2];
-                  data[j++] = all/(12*scale);
-              }
-              
-              return data;
+  <head>
+    <title>Networked-Aframe Examples</title>
+    <meta name="description" content="Collection of examples for networked-aframe"></meta>
+    <style>
+      html {
+        background: #33425B;
+        color: #FAFAFA;
+        font-family: monospace;
+        font-size: 20px;
+        padding: 10px 20px;
       }
-        AFRAME.registerComponent('start-experience', {
-            init: function () {
-            //we can't play sound on some browsers until we have some user interaction
-            //this means we should only start playing ambient music after this button is clicked
-            
-            
-            
-            console.log('scene loaded');
-            document.querySelector('#loading-animation').style.display='none';
-            document.querySelector('#user-gesture-button').style.display='block';
-
-            document.querySelector('#height-map');
-
-            
-            }
-        });
-        AFRAME.registerComponent('ground-plane', {
-          init: function () {
-            //get height data from img
-            var img = new Image();
-            img.src='assets/Heightmap_1000_test.jpg';
-            var data = getHeightData(img);
-
-            console.log('confirm');
-            // plane
-            var geometry = new THREE.PlaneGeometry(1000,1000,999,999);
-            var material = new THREE.MeshBasicMaterial({
-              color: 0xff0000,
-              wireframe: true
-            });
-            plane = new THREE.Mesh( geometry, material );
-
-            var min = 50;
-            //set height of vertices
-            for ( var i = 0; i<plane.geometry.vertices.length; i++ ) {
-                plane.geometry.vertices[i].z = data[i] - 21;
-            }
-            
-
-            this.el.setObject3D('mesh', plane);
-            this.el.setAttribute('static-body');
-          },
-        update: function () {
-            var planeEntity = document.querySelector('a-plane');
-            //console.log(planeEntity.geometry.vertices[500+500]);
-          }
-        });
-        //function called from user-gesture click
-        const startExperience = function() {
-            //hide user-gesture overlay
-            document.querySelector('#user-gesture-overlay').style.display='none';
-                    
-            //start all ambient music
-            const ambientSounds = document.querySelectorAll('.ambient-music');
-            ambientSounds.forEach(function(soundEntity) {
-            soundEntity.components.sound.playSound();
-            });
-        }
-      </script>
-    </head>
-    <body>
-      <div id="user-gesture-overlay">
-        <div class="center">
-            <button id="user-gesture-button" onclick="startExperience();">enter experience</button>
-            <!-- loading gif from: https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1 -->
-            <img id="loading-animation" src="/assets/loader_animation.gif">
-        </div>
+      h1 {
+        font-weight: 300;
+      }
+      a {
+        color: #FAFAFA;
+        /*display: block;*/
+        padding: 15px 0;
+      }
+      body > div {
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Networked-Aframe Examples</h1>
+    <div>
+      <a href="basic.html">Basic</a>
+      <span>Simple avatars with synced color</span>
     </div>
-      <a-scene start-experience>
-        
-        <a-assets physics="debug: true" timeout="10000">
-          
-          <img id="height-map" src="assets/Heightmap_1000_test.jpg">
-          
-          <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
-        
-        </a-assets>
+    <div>
+      <a href="basic-4.html">4-in-one</a>
+      <span>Opens the basic example 4 times on one page using iframes</span>
+    </div>
+    <div>
+      <a href="webrtc.html">WebRTC</a>
+      <span>Basic example with WebRTC support</span>
+    </div>
+    <div>
+      <a href="basic-audio.html">Positional Audio</a>
+      <span>Example of using positional audio with WebRTC</span>
+    </div>
+    <div>
+      <a href="a-saturday-night/">Dance Club</a>
+      <span>Night club based on A-Frame's <a href="https://aframe.io/a-saturday-night/">A Saturday Night</a> demo</span>
+    </div>
+    <div>
+      <a href="shooter-2.html">Shooter</a>
+      <span>Press spacebar to shoot. Example for spawning networked entities at runtime.</span>
+    </div>
+    <div>
+      <a href="360.html">360 Image</a>
+      <span>Basic example with 360 image environment</span>
+    </div>
+    <div>
+      <a href="tracked-controllers.html">Tracked Controllers</a>
+      <span>Use with HTC Vive controllers or Oculus Touch</span>
+    </div>
+    <div>
+      <a href="google-blocks.html">Google Blocks</a>
+      <span>Scene and Avatars made entirely in <a href="https://vr.google.com/objects">Google Blocks</a></span>
+    </div>
+    <div>
+      <a href="basic-events.html">Basic with events</a>
+      <span>Example of listening to and logging NAF events</span>
+    </div>
+    <div>
+      <a href="ownership-transfer.html">Ownership Transfer</a>
+      <span>Demonstrates transfering ownership of entities</span>
+    </div>
+    <div>
+      <a href="adapter-test/">Adapter Test</a>
+      <span>Use this page to test new network adapters</span>
+    </div>
+    <!-- <a href="ar-index.html">AR Examples</a>
+    <p>View the above examples as AR scenes using a marker and AR.js</p> -->
 
-        <a-entity camera wasd-controls look-controls position="0 20 0">
-          <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
-          <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
-        </a-entity>        
-       
-        <a-entity class="ambient-music" sound="src:#background_music; autoplay:false;"></a-entity>
+    <br>
 
-        <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="100" height="100" depth="100"></a-plane>
-        <a-box position="5 5 -5" color="#4CC3D9" dynamic-body></a-box>
-        <a-box position="-5 5 5" color="#4CC3D9" dynamic-body></a-box>
-        <a-box position="0 5 -5" color="#4CC3D9" dynamic-body></a-box>
-        <a-box position="0 5 5" color="#4CC3D9" dynamic-body></a-box>
-        <a-entity  material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="4" height="4"  static-body></a-entity>
+    <p>Want to help make better examples? That would be awesome! Contact <a href="https://twitter.com/haydenlee37" target="_blank">Hayden on twitter</a>.</p>
 
-        <!--a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
-      </a-scene>
-
-      
-    </body>
+    <!-- GitHub Corner. -->
+    <a href="https://github.com/haydenjameslee/networked-aframe" class="github-corner">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+    </style>
+  </body>
 </html>

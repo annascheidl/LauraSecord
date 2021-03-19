@@ -1,34 +1,19 @@
 {
-  "name": "laurasecord",
+  "name": "naf-tutorial",
   "version": "1.0.0",
-  "description": "Multi-Platform user ineraction",
-  "main": "app.js",
+  "description": "My first multi-user virtual reality",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .server/index.js" 
+
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/annascheidl/LauraSecord.git"
-  },
-  "author": "Quinlan Walker, Anna Scheidl",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/annascheidl/LauraSecord/issues"
-  },
-  "homepage": "https://github.com/annascheidl/LauraSecord#readme",
+  "author": "YOUR_NAME",
   "dependencies": {
-    "aframe": "^1.2.0",
-    "aframe-map": "^2.1.1",
-    "aframe-particle-system-component": "^1.1.3",
-    "aframe-physics-system": "^4.0.1",
-    "ammo": "^3.0.3",
-    "ammo.js": "0.0.10",
-    "express": "^4.17.1",
-    "perlin-noise": "0.0.1",
-    "simplex-noise": "^2.4.0",
-    "three": "^0.126.1"
+    "networked-aframe": "^0.7.0"
   },
-  "devDependencies": {
-    "install-peers": "^1.0.3"
-  }
+  "main": "index.js",
+  "directories": {
+    "Examples": "examples"
+  },
+  "devDependencies": {},
+  "license": "ISC"
 }
