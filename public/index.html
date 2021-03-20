@@ -8,6 +8,7 @@
       <script src="/js/aframe-environment-component.min.js"></script>
       <script src="/js/aframe-particle-system-component.min.js"></script>
       <script src="/js/aframe-physics-system.min.js"></script>
+      <script src="/js/converter.js"></script>
 
       <link rel="stylesheet" href="/css/user-gesture.css">
 
@@ -30,11 +31,11 @@
           
           <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
 
-          <!--a-asset-item id="rock-model-one-obj"  response-type="arraybuffer" src="/assets/designRock_1.obj" crossorigin="anonymous"></a-asset-item>
-          <a-asset-item id="rock_model_one_mtl"     response-type="arraybuffer" src="/assets/designRock_1.mtl"></a-asset-item-->
+          <a-asset-item id="rock-model-one-obj"  response-type="arraybuffer" src="/assets/pineTreeFinal.obj" crossorigin="anonymous"></a-asset-item>
+          <a-asset-item id="rock-model-one-mtl"  response-type="arraybuffer" src="/assets/pineTreeFinal.mtl" crossorigin="anonymous"></a-asset-item>
           
-          <!--a-asset-item id="rock_model_two_obj" response-type="arraybuffer" src="/assets/designRock_2.obj" crossorigin="anonymous"></a-asset-item>
-          <a-asset-item id="rock_model_two_mtl"     response-type="arraybuffer" src="/assets/designRock_2.mtl"></a-asset-item-->
+          <a-asset-item id="rock_model_two_obj" response-type="arraybuffer" src="/assets/designRock_2.obj" crossorigin="anonymous"></a-asset-item>
+          <!--a-asset-item id="rock_model_two_mtl"     response-type="arraybuffer" src="/assets/designRock_2.mtl"></a-asset-item-->
 
         
         </a-assets>
@@ -53,12 +54,12 @@
         
         <!--a-box id='testBox1' position="2 0.6 2" color="#4CC3D9" static-body></a-box>
         <a-box id='testBox2' position="-2 0.6 -2" color="#4CC3D9" static-body></a-box>
-        <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box>
+        <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box-->
 
-        <a-entity id="testObj" position="-500 25.6 -450"  src="#rock-model-one-obj"></a-entity>
+        <a-entity id="testObj" position="0 16.6 0"  obj-model="obj: #rock-model-one-obj"></a-entity>
 
         <a-entity id="testObj2" position="-500 25.6 -450" rotation="0 0 0" scale="10 10 10"  obj-model="obj: #rock_model_two_obj"></a-entity>
-        <a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
+        <!--a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
 
         <a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
       </a-scene>
