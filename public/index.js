@@ -8,29 +8,20 @@ function convertCords(oldVector){
     switch(value){
       case 0:
         //box
-        newObj = document.createElement('a-box');
-        //newObj.setAttribute('obj-model', 'obj: #rock-model-one-obj; mtl: #rock-model-one-mtl;');
-        //newObj.setAttribute('visible', true);
-        document.querySelector('a-scene').appendChild(newObj);
-        console.log('test');
+        newObj = document.createElement('a-entity');
+        newObj.setAttribute('designRock_1', '\assets/designRock_1.obj')
         break;
       case 1:
         //sphere
         newObj = document.createElement('a-sphere');
-        //newObj.setAttribute('obj-model', 'obj: #rock-model-one-obj; mtl: #rock-model-one-mtl;');
-        document.querySelector('a-scene').appendChild(newObj);
         break;
       case 2:
         //cylinder
         newObj = document.createElement('a-cylinder');
-        //newObj.setAttribute('obj-model', 'obj: #rock-model-one-obj; mtl: #rock-model-one-mtl;');
-        document.querySelector('a-scene').appendChild(newObj);
         break;
       case 3:
         //torus
         newObj = document.createElement('a-torus');
-        //newObj.setAttribute('obj-model', 'obj: #rock-model-one-obj; mtl: #rock-model-one-mtl;');
-        document.querySelector('a-scene').appendChild(newObj);
         break;
       default:
         //empty space
@@ -97,7 +88,7 @@ function convertCords(oldVector){
       // plane
       var geometry = new THREE.PlaneGeometry(100,100,99,99);
       var material = new THREE.MeshStandardMaterial({
-        color: 0x573B0C,
+        color: 0xE50096,
         roughness: 0.1,
         metalness:0.5,
         flatShading: true
@@ -116,7 +107,10 @@ function convertCords(oldVector){
         envObj = SpawnObject(parseInt(Math.random()*70));
         if(!(envObj=='null')){
           envObj.setAttribute('position', convertCords(plane.geometry.vertices[i]));
-          
+          document.querySelector('a-scene').appendChild(envObj);
+          envObj.addEventListener('loaded', function () {
+            console.log('envObj attached');
+          });
         }
       }
       //var testBox1 = document.querySelector('#testBox1');
