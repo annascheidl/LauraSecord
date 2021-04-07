@@ -1,70 +1,66 @@
-<!DOCTYPE html>
+<!--Marked as Compiled-->
+
 <html>
-    <head>
-      <title>Laura Secord - Homepage</title>
-      <meta name="description" content="Hello, WebVR! - A-Frame">
+  <head>
+    <title>Laura Secord Game</title>
+    <meta name="description" content="The Laura Secord game"></meta>
+    <style>
+      html {
+        background: #0e2f66;
+        color: #FAFAFA;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 20px;
+        padding: 10px 20px;
+      }
 
-      <script src="/js/aframe.min.js"></script>
-      <script src="/js/aframe-environment-component.min.js"></script>
-      <script src="/js/aframe-particle-system-component.min.js"></script>
-      <script src="/js/aframe-physics-system.min.js"></script>
+      .button {
+        background-color: #e0c341;
+        border: none;
+        color: rgb(29, 4, 4);
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor:pointer;
+        margin: 4px 2px;
+      }
 
-      <link rel="stylesheet" href="/css/user-gesture.css">
+      .button1 {border-radius:12px;}
 
-      <!--script src="/js/aframe-map.min.js"></script-->
-      <script src="index.js"></script>
-    </head>
-    <body>
-      <div id="user-gesture-overlay">
-        <div class="center">
-            <button id="user-gesture-button" onclick="startExperience();">enter experience</button>
-            <!-- loading gif from: https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1 -->
-            <img id="loading-animation" src="/assets/loader_animation.gif">
-        </div>
+      h1 {
+        font-weight: 300;
+      }
+      a {
+        color: #FAFAFA;
+        /*display: block;*/
+        padding: 15px 0;
+      }
+      body > div {
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Walk in the Woods</h1>
+    <div>
+      <span>Walk in the Woods is based on Laura Secord's walk through the woods to get to the British troops to warn them in time about an American invasion.
+        With that information they were able to decimate the American troops and send them packing.
+        The idea of the game is that the player in Laura Secord's role will try to reach the camp.
+        The environment has multiple sorts of terrain-related traps to slow the player down.
+        A second player, the soldier, is hunting Laura Secord with a lantern.
+        
+      </span>
+
+      <p>Choose which role you will have.</p>
+        <ul>
+            <li><a href="/lauraSecordPlayer.html">Laura Secord</a></li>
+            <li><a href="/soldierPlayer.html">Soldier</a></li>
+        </ul>
+      <br>
+        <p> Play Single player mode</p>
+        <button class="button button1:"><a href="/soldierPlayer.html">Single player</button>
     </div>
-      <a-scene start-experience>
-        <a-assets>
-          <a-asset-items id="designRock_1" src="assets/designRock_1.obj"></a-asset-items>
-      </a-assets>
-        <a-assets physics="debug: true" timeout="10000">
-          
-          <img id="height-map" src="assets/Heightmap_100.jpg">
-          
-          <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
-
-          <!--a-asset-item id="rock-model-one-obj"  response-type="arraybuffer" src="/assets/designRock_1.obj" crossorigin="anonymous"></a-asset-item>
-          <a-asset-item id="rock_model_one_mtl"     response-type="arraybuffer" src="/assets/designRock_1.mtl"></a-asset-item-->
-          
-          <!--a-asset-item id="rock_model_two_obj" response-type="arraybuffer" src="/assets/designRock_2.obj" crossorigin="anonymous"></a-asset-item>
-          <a-asset-item id="rock_model_two_mtl"     response-type="arraybuffer" src="/assets/designRock_2.mtl"></a-asset-item-->
-
-        
-        </a-assets>
-
-        <a-entity camera wasd-controls look-controls position="0 20.6 0">
-          <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
-          <a-entity light="type:spot; intensity:1.4; castShadow:true; shadowBias:-0.0005; angle:40; penumbra:0.3;" position="0.5 -0.5 0" rotation="0 0 0"></a-entity>
-        </a-entity>        
-        
-        <a-entity class="ambient-music" sound="src:#background_music; autoplay:false;"></a-entity>
-
-        <!--a-entity light="type: ambient; color: #CCC"></a-entity-->
-        <a-entity light="type: directional; color: #EEE; intensity: 0.5" position="-1 1 0"></a-entity>
-
-        <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="1" height="1" depth="1"></a-plane>
-        
-        <!--a-box id='testBox1' position="2 0.6 2" color="#4CC3D9" static-body></a-box>
-        <a-box id='testBox2' position="-2 0.6 -2" color="#4CC3D9" static-body></a-box>
-        <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box>
-
-        <a-entity id="testObj" position="-500 25.6 -450"  src="#rock-model-one-obj"></a-entity>
-
-        <a-entity id="testObj2" position="-500 25.6 -450" rotation="0 0 0" scale="10 10 10"  obj-model="obj: #rock_model_two_obj"></a-entity>
-        <a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
-
-        <a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
-      </a-scene>
-
-      
-    </body>
+    
+  </body>
 </html>

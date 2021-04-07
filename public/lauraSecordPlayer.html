@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Laura Secord - Laura</title>
+      <meta name="description" content="Hello, WebVR! - A-Frame">
+
+     <script src="/js/aframe.min.js"></script>
+     
+     <!-- loading in our js file with custom component -->
+      <!--<script src="/socket.io/socket.io.js"></script> -->
+      <script src="/js/aframe-environment-component.min.js"></script>
+      <a-asset-items id="lantern" src="/assets/scene.gltf"></a-asset-items>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="/js/networked-aframe.min.js"></script>
+      <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+      <!--<script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>-->
+      <script src="/js/spawn-in-circle.component.js"></script>
+      <script src="/js/aframe-particle-system-component.min.js"></script>
+      <script src="/js/aframe-physics-system.min.js"></script>
+      <script src="/js/converter.js"></script>
+      <script src="/js/touch.js"></script>
+
+      <script src="index.js"></script>
+      <script>
+  
+        //node server/easyrtc-server.js
+        //From the network-aframe library tutorial
+          AFRAME.registerComponent('spawn-in-circle', {
+            schema: {
+              radius: {type: 'number', default: 1}
+            },
+          
+            init: function() {
+              var el = this.el;
+              var center = el.getAttribute('position');
+          
+              var angleRad = this.getRandomAngleInRadians();
+              var circlePoint = this.randomPointOnCircle(this.data.radius, angleRad);
+              var worldPoint = {x: circlePoint.x + center.x, y: center.y, z: circlePoint.y + center.z};
+              el.setAttribute('position', worldPoint);
+          
+              var angleDeg = angleRad * 180 / Math.PI;
+              var angleToCenter = -1 * angleDeg + 90;
+              var rotationStr = '0 ' + angleToCenter + ' 0';
+              el.setAttribute('rotation', rotationStr);
+            },
+          
+            getRandomAngleInRadians: function() {
+              return Math.random()*Math.PI*2;
+            },
+          
+            randomPointOnCircle: function (radius, angleRad) {
+              x = Math.cos(angleRad)*radius;
+              y = Math.sin(angleRad)*radius;
+              return {x: x, y: y};
+            }
+          });
+      </script>
+      <script>
+          AFRAME.registerComponent('cursor-listener', {
+            init: function () {
+              
+              this.el.addEventListener('click', function (evt) {
+                
+                console.log('I was clicked at ');
+                window.location.replace("/homepage.html");
+
+              });
+            }
+          });
+        /*AFRAME.registerComponent('destination-end', {
+          init: function () {
+
+            this.el.addEventListener('click', function (evt) {
+              console.log("CLIcKED");
+              window.location.replace("/homepage.html");
+
+            });
+          }
+        });*/
+
+
+      </script>
+    </head>
+    <body>
+      <a-scene start-experience networked-scene="
+      room: dev;
+      debug: true;
+      adapter: socketio;
+        ">
+        <a-assets physics="debug: true" timeout="10000"></a-assets>
+        <a-assets><a-asset-item id="laura-obj" src="/assets/FemaleBase.obj"></a-asset-item>
+          <a-asset-item id="lantern-obj" src="/assets/lantern.obj"></a-asset-item>
+        <!--  <a-asset-item id="rock-model-one-obj" src="/assets/pineTreeFinal.obj"></a-asset-item>
+          <a-asset-item id="rock-model-one-mtl" src="/assets/pineTreeFinal.mtl"></a-asset-item>
+          <a-asset-item id="rock-model-two-obj" src="/assets/designRock_2.obj"></a-asset-item>
+          <a-asset-item id="rock-model-two-mtl" src="/assets/designRock_2.mtl"></a-asset-item>-->
+        </a-assets>
+
+        <!-- Avatar testing -->
+
+        <a-assets>
+          <template id="avatar-template">
+            <a-entity class="avatar">
+            <a-entity obj-model="obj: #laura-obj;" scale = "0.35 0.35 0.35" position= "1 -1.6 0" rotation="0 -180 0"></a-entity>
+          </a-entity>
+        </template>
+        </a-assets>
+
+
+
+          <img id="height-map" src="assets/Heightmap_100.jpg">
+          
+          <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
+
+          <!--<a-asset-item id="rock-model-one-obj"  response-type="arraybuffer" src="/assets/pineTreeFinal.obj" crossorigin="anonymous"></a-asset-item>
+          <a-asset-item id="rock-model-one-mtl"  response-type="arraybuffer" src="/assets/pineTreeFinal.mtl" crossorigin="anonymous"></a-asset-item>
+          
+          <a-asset-item id="rock_model_two_obj" response-type="arraybuffer" src="/assets/designRock_2.obj" crossorigin="anonymous"></a-asset-item>
+          a-asset-item id="rock_model_two_mtl"     response-type="arraybuffer" src="/assets/designRock_2.mtl"></a-asset-item-->
+
+        
+        </a-assets>
+                
+        <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera wasd-controls look-controls spawn-in-circle="radius:3;" position="0 20.6 0">
+          <a-entity cursor="rayOrigin:mouse;"
+          raycaster="far:20; interval:200; objects:.interactive"
+          ></a-entity>
+          <a-entity class="Lantern" obj-model="obj: #lantern-obj" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
+            <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
+          </a-entity>
+          
+          </a-entity>
+
+          <a-entity class="ambient-music" sound="src:#background_music; autoplay:false;"></a-entity>
+
+          <!--a-entity light="type: ambient; color: #CCC"></a-entity-->
+  
+          <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="1" height="1" depth="1"></a-plane>
+          
+          <!--a-box id='testBox1' position="2 0.6 2" color="#4CC3D9" static-body></a-box>
+          <a-box id='testBox2' position="-2 0.6 -2" color="#4CC3D9" static-body></a-box>
+          <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box-->
+  
+          <a-entity id="testObj" position="0 16.6 0"  obj-model="obj: #rock-model-one-obj"></a-entity>
+  
+          <a-entity id="testObj2" position="-500 25.6 -450" rotation="0 0 0" scale="10 10 10"  obj-model="obj: #rock_model_two_obj"></a-entity>
+          <!--a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
+  
+          <a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
+          <a-entity environment="preset:starry"></a-entity>
+        <a-sphere class= "interactive" id="destination-sphere" position="0 20 90" color="#4a86e8" scale="1 1 1" href="/homepage.html" __sphereclick="startEvents:click" destination-end cursor-listener></a-sphere>
+
+        <a-entity light="color: #FFFFFF; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" position="0 30 90" rotation="-90 0 0"></a-entity>
+
+        <a-plane position="0 20.6 -100" rotation="0 0 0" color="#163832" scale="202 50 10"></a-plane>
+        <a-plane position="0 20.6 100" rotation="180 0 0" color="#163832" scale="202 50 10"></a-plane>
+        <a-plane position="100 20.6 0" rotation="180 90 0" color="#163832" scale="202 50 10"></a-plane>
+        <a-plane position="-100 20.6 0" rotation="-180 -90 0" color="#163832" scale="202 50 10"></a-plane>
+
+        </a-scene>
+  
+        
+      </body>
+  </html>
+
+        <!-- Anna's code here 
+        
+      </a-scene>
+
+    </body>
+</html>-->
