@@ -7,6 +7,10 @@ function getDotProducts(vectorA, vectorB){
   return  (vectorA[0] * vectorB[0]) + (vectorA[1] * vectorB[1]) + (vectorA[2] * vectorB[2]);
 }
 
+function distanceFromPoint(pointA, pointB){
+  return  Math.sqrt((pointB[0] - pointA[0])**2 +  (pointB[1] - pointA[1])**2);
+}
+
 function SpawnObject(value){
   var newObj;
   switch(value){
