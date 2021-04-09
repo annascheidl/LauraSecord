@@ -11,6 +11,11 @@ function distanceFromPoint(pointA, pointB){
   return  Math.sqrt((pointB[0] - pointA[0])**2 +  (pointB[1] - pointA[1])**2);
 }
 
+function nearestPoint(playerPoint){
+  
+  return null;
+}
+
 function SpawnObject(value){
   var newObj;
   switch(value){
@@ -93,9 +98,13 @@ AFRAME.registerComponent('start-experience', {
 });
 AFRAME.registerComponent('ground-plane', {
   init: function () {
+    var currentLauraCord = [0,0];
+    var prevLauraCord = [-1,-1];
+    var currentCords = [-1,-1];
+
     //get height data from img
     var img = new Image();
-    img.src='assets/Heightmap_100.jpg';
+    img.src = 'assets/Heightmap_100.jpg';
     var data = getHeightData(img);
 
     var envObj;
@@ -120,6 +129,7 @@ AFRAME.registerComponent('ground-plane', {
       
       //this spawns objects
       envObj = SpawnObject(parseInt(Math.random()*70));
+      console.log(data[i]);
       if(!(envObj=='null')){
         envObj.setAttribute('position', convertCords(plane.geometry.vertices[i]));
         
@@ -142,6 +152,20 @@ AFRAME.registerComponent('ground-plane', {
     //console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
     //console.log(testBox1.getAttribute('position'));
   },
+  tick: function (time, deltaTime) {
+    for (var i = 0; i < data.length; i++){
+      //due to the minor variability in the z axis, it is ignored in favor of simplicity
+      planeCord = [data.x*10, data.y*10];
+      
+      if (distanceFromPoint(planeCord, )){
+        if (distanceFromPoint(planeCord, )){
+
+        }
+
+      }
+      
+    }
+  }
 });
 //function called from user-gesture click
 const startExperience = function() {
