@@ -3,6 +3,10 @@ function convertCords(oldVector){
   return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
 }
 
+function getDotProducts(vectorA, vectorB){
+  return  (vectorA[0] * vectorB[0]) + (vectorA[1] * vectorB[1]) + (vectorA[2] * vectorB[2]);
+}
+
 function SpawnObject(value){
   var newObj;
   switch(value){
@@ -29,7 +33,7 @@ function SpawnObject(value){
       //more trees
       newObj = document.createElement('a-entity');
       newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
-      newObj.setAttribute('scale', {property:'scale', to: '5 5 5'})
+      newObj.setAttribute('scale', {property:'scale', to: '10 10 10'})
       document.querySelector('a-scene').appendChild(newObj);
       break;
     default:

@@ -76,6 +76,10 @@
             <a-entity class="avatar">
             <a-entity obj-model="obj: #laura-obj;" scale = "0.35 0.35 0.35" position= "-1 -1.6 0" rotation="0 -180 0"></a-entity>
           </a-entity>
+          <template id="creature-template">
+            <a-entity class="chaser">
+            <a-entity obj-model="obj: #laura-obj;" scale = "0.35 0.35 0.35" position= "-1 -1.6 0" rotation="0 -180 0"></a-entity>
+          </a-entity>
         </template>
         </a-assets>
 
@@ -96,8 +100,12 @@
                 
         <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera wasd-controls look-controls spawn-in-circle="radius:3;" position="0 20.6 0">
           <a-entity class="Lantern" obj-model="obj: #lantern-obj" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
-            <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
-          </a-entity>
+          <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
+        </a-entity>
+        <a-entity id="creature" networked="template:#avatar-template;attachTemplateToLocal:false;" camera wasd-controls look-controls spawn-in-circle="radius:3;" position="0 20.6 0">
+          <a-entity class="Lantern" obj-model="obj: #lantern-obj" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
+        </a-entity>
           <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
           </a-entity>
 
