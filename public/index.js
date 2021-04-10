@@ -1,3 +1,7 @@
+var currentLauraCord = [0,0];
+var prevLauraCord = [-1,-1];
+var currentCords = [-1,-1];
+var minDistance = 9999.0;
 
 function convertCords(oldVector){
   return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
@@ -98,9 +102,7 @@ AFRAME.registerComponent('start-experience', {
 });
 AFRAME.registerComponent('ground-plane', {
   init: function () {
-    var currentLauraCord = [0,0];
-    var prevLauraCord = [-1,-1];
-    var currentCords = [-1,-1];
+    
 
     //get height data from img
     var img = new Image();
@@ -155,11 +157,14 @@ AFRAME.registerComponent('ground-plane', {
   tick: function (time, deltaTime) {
     for (var i = 0; i < data.length; i++){
       //due to the minor variability in the z axis, it is ignored in favor of simplicity
-      planeCord = [data.x*10, data.y*10];
+      planeCord = [data[i].x*10, data[i].y*10];
       
-      if (distanceFromPoint(planeCord, )){
-        if (distanceFromPoint(planeCord, )){
+      if (!(prevLauraCord == currentLauraCord)){
+        currentLauraCord = [document.querySelector('player').getAttribute('position').x,document.querySelector('player').getAttribute('position').y];
 
+        if (float*distanceFromPoint(planeCord, currentLauraCord) < prevDistance){
+          currentCords = planeCord[i];
+          prevDistance = float*distanceFromPoint(planeCord, currentLauraCord);
         }
 
       }
