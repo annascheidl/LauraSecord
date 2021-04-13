@@ -1,23 +1,6 @@
-var currentLauraCord = [0,0];
-var prevLauraCord = [-1,-1];
-var currentCords = [-1,-1];
-var minDistance = 9999.0;
 
 function convertCords(oldVector){
   return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
-}
-
-function getDotProducts(vectorA, vectorB){
-  return  (vectorA[0] * vectorB[0]) + (vectorA[1] * vectorB[1]) + (vectorA[2] * vectorB[2]);
-}
-
-function distanceFromPoint(pointA, pointB){
-  return  Math.sqrt((pointB[0] - pointA[0])**2 +  (pointB[1] - pointA[1])**2);
-}
-
-function nearestPoint(playerPoint){
-  
-  return null;
 }
 
 function SpawnObject(value){
@@ -40,13 +23,14 @@ function SpawnObject(value){
       //pineTree
       newObj = document.createElement('a-entity');
       newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
+      newObj.setAttribute('scale', {x: 10, y: 10, z: 10})
       document.querySelector('a-scene').appendChild(newObj);
       break;
     case 3:
       //more trees
       newObj = document.createElement('a-entity');
       newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
-      newObj.setAttribute('scale', {property:'scale', to: '10 10 10'})
+      newObj.setAttribute('scale', {x: 10, y: 10, z: 10})
       document.querySelector('a-scene').appendChild(newObj);
       break;
     default:
@@ -92,7 +76,6 @@ AFRAME.registerComponent('start-experience', {
     //this means we should only start playing ambient music after this button is clicked
     
     
-    
     console.log('scene loaded');
 
     document.querySelector('#height-map');
@@ -102,11 +85,9 @@ AFRAME.registerComponent('start-experience', {
 });
 AFRAME.registerComponent('ground-plane', {
   init: function () {
-    
-
     //get height data from img
     var img = new Image();
-    img.src = 'assets/Heightmap_100.jpg';
+    img.src='assets/Heightmap_100.jpg';
     var data = getHeightData(img);
 
     var envObj;
@@ -131,7 +112,6 @@ AFRAME.registerComponent('ground-plane', {
       
       //this spawns objects
       envObj = SpawnObject(parseInt(Math.random()*70));
-      console.log(data[i]);
       if(!(envObj=='null')){
         envObj.setAttribute('position', convertCords(plane.geometry.vertices[i]));
         
@@ -154,23 +134,6 @@ AFRAME.registerComponent('ground-plane', {
     //console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
     //console.log(testBox1.getAttribute('position'));
   },
-  tick: function (time, deltaTime) {
-    for (var i = 0; i < data.length; i++){
-      //due to the minor variability in the z axis, it is ignored in favor of simplicity
-      planeCord = [data[i].x*10, data[i].y*10];
-      
-      if (!(prevLauraCord == currentLauraCord)){
-        currentLauraCord = [document.querySelector('player').getAttribute('position').x,document.querySelector('player').getAttribute('position').y];
-
-        if (float*distanceFromPoint(planeCord, currentLauraCord) < prevDistance){
-          currentCords = planeCord[i];
-          prevDistance = float*distanceFromPoint(planeCord, currentLauraCord);
-        }
-
-      }
-      
-    }
-  }
 });
 //function called from user-gesture click
 const startExperience = function() {

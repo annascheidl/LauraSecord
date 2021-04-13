@@ -68,7 +68,7 @@
               });
             }
           });
-        /*AFRAME.registerComponent('destination-end', {
+        AFRAME.registerComponent('destination-end', {
           init: function () {
 
             this.el.addEventListener('click', function (evt) {
@@ -77,7 +77,7 @@
 
             });
           }
-        });*/
+        });
 
 
       </script>
@@ -111,7 +111,7 @@
 
           <img id="height-map" src="assets/Heightmap_100.jpg">
           
-          <audio id="background_music" src="/assets/bensound-sweet.mp3" preload="auto" crossorigin="anonymous"></audio>
+          <audio id="background_music" src="/assets/bensound-instinct.mp3" preload="auto" crossorigin="anonymous"></audio>
 
           <!--<a-asset-item id="rock-model-one-obj"  response-type="arraybuffer" src="/assets/pineTreeFinal.obj" crossorigin="anonymous"></a-asset-item>
           <a-asset-item id="rock-model-one-mtl"  response-type="arraybuffer" src="/assets/pineTreeFinal.mtl" crossorigin="anonymous"></a-asset-item>
@@ -122,7 +122,7 @@
         
         </a-assets>
                 
-        <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera wasd-controls look-controls spawn-in-circle="radius:3;" position="0 20.6 0">
+        <a-entity class= "interactive" id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" cursor-listener camera wasd-controls look-controls spawn-in-circle="radius:3;" position="0 20.6 0">
           <a-entity cursor="rayOrigin:mouse;"
           raycaster="far:20; interval:200; objects:.interactive"
           ></a-entity>
