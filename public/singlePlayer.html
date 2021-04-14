@@ -22,7 +22,10 @@
 
       <script src="index.js"></script>
       <script>
-  
+        var creatureState = 0;
+        var el;
+        var playerDetected = false;
+
         //node server/easyrtc-server.js
         //From the network-aframe library tutorial
           AFRAME.registerComponent('spawn-in-circle', {
@@ -53,6 +56,89 @@
               x = Math.cos(angleRad)*radius;
               y = Math.sin(angleRad)*radius;
               return {x: x, y: y};
+            }
+          });
+
+          AFRAME.registerComponent('creature', {
+            inti: function(){
+              el = this.el;
+              
+            },
+            tick: function(){
+
+              
+              switch(creatureState){
+                case 0:
+                  //Initial state and most common
+                  //State: Search
+                  if(distanceFromPoint(el.getAttribute('position'), document.querySelector('player').getAttribute('position'))){
+                    console.log()
+                  }
+                  playerDetected = true;
+
+                  if(playerDetected){
+                    creatureState+=1;
+                  }
+                  break;
+                case 1:
+                  //State: Stalk
+                  var triggerA = false;
+                  var triggerB = false;
+
+                  
+                  if(triggerA){
+                    creatureState = 2;
+                  }
+
+                  if(triggerB){
+                    creatureState = 3;
+                  }
+                  //code
+                  break;
+                case 2:
+                  //State: Escape
+                  var triggerA = false;
+                  var triggerB = false;
+
+                  
+                  if(triggerA){
+                    creatureState = 0;
+                  }
+                  if(triggerB){
+                    creatureState = 3;
+                  }
+                  //code
+                  break;
+                case 3:
+                  //State: Attack
+                  var triggerA = false;
+                  var triggerB = false;
+
+                  if(triggerA){
+                    creatureState = 2;
+                  }
+                  
+                  if(triggerB){
+                    creatureState = 4;
+                  }
+                  //code
+                  break;
+                case 4:
+                  //State: Scare
+                  var trigger = true;
+
+                  //charge player
+                  //code
+                  if(trigger){
+                    creatureState = 2;
+                  }
+                  
+                  break;
+                default:
+                  //State: Failed
+                  console.log('Command Not Recognized');
+                  break;
+              }
             }
           });
       </script>
@@ -132,28 +218,35 @@
           raycaster="far:20; interval:200; objects:.interactive"
           ></a-entity>
           <a-entity class="Lantern" obj-model="obj: #lantern-obj" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
-            <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
-          </a-entity>
+          <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
+        </a-entity>
+        <a-entity creature networked="template:#avatar-template;attachTemplateToLocal:false;" camera wasd-controls look-controls spawn-in-circle="radius:3;" position="0 20.6 0">
+          <a-entity cursor="rayOrigin:mouse;"
+          raycaster="far:20; interval:200; objects:.interactive"
+          ></a-entity>
+          <a-entity class="Lantern" obj-model="obj: #lantern-obj" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
+        </a-entity>
           
-          </a-entity>
+        </a-entity>
 
-          <a-entity class="ambient-music" sound="src:#background_music; autoplay:false;"></a-entity>
+        <a-entity class="ambient-music" sound="src:#background_music; autoplay:false;"></a-entity>
 
           <!--a-entity light="type: ambient; color: #CCC"></a-entity-->
   
-          <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="1" height="1" depth="1"></a-plane>
+        <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="1" height="1" depth="1"></a-plane>
           
           <!--a-box id='testBox1' position="2 0.6 2" color="#4CC3D9" static-body></a-box>
           <a-box id='testBox2' position="-2 0.6 -2" color="#4CC3D9" static-body></a-box>
           <a-box id='testBox3' position="2 5.6 0" color="#4CC3D9" static-body></a-box-->
   
-          <a-entity id="testObj" position="0 16.6 0"  obj-model="obj: #rock-model-one-obj"></a-entity>
+        <a-entity id="testObj" position="0 16.6 0"  obj-model="obj: #rock-model-one-obj"></a-entity>
   
-          <a-entity id="testObj2" position="-500 25.6 -450" rotation="0 0 0" scale="10 10 10"  obj-model="obj: #rock_model_two_obj"></a-entity>
+        <a-entity id="testObj2" position="-500 25.6 -450" rotation="0 0 0" scale="10 10 10"  obj-model="obj: #rock_model_two_obj"></a-entity>
           <!--a-entity ground-plane material="color: red" geometry="primitive: plane" position="0 0 0" rotation="-90 0 0" width="400" height="400"  static-body></a-entity>
   
           <a-entity  static-body environment="preset:dream; ground:hills;"></a-entity-->
-          <a-entity environment="preset:starry"></a-entity>
+        <a-entity environment="preset:starry"></a-entity>
         <a-sphere class= "interactive" id="destination-sphere" position="0 20 90" color="#4a86e8" scale="1 1 1" href="/homepage.html" __sphereclick="startEvents:click" destination-end cursor-listener></a-sphere>
 
         <a-entity light="color: #FFFFFF; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" position="0 30 90" rotation="-90 0 0"></a-entity>

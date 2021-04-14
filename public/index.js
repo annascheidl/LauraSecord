@@ -3,6 +3,8 @@ var prevLauraCord = [-1,-1];
 var currentCords = [-1,-1];
 var minDistance = 9999.0;
 
+var nearistIndex = -1;
+
 function convertCords(oldVector){
   return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
 }
@@ -154,21 +156,23 @@ AFRAME.registerComponent('ground-plane', {
     //console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
     //console.log(testBox1.getAttribute('position'));
   },
-  tick: function (time, deltaTime) {
-    for (var i = 0; i < data.length; i++){
-      //due to the minor variability in the z axis, it is ignored in favor of simplicity
-      planeCord = [data[i].x*10, data[i].y*10];
+  tick: function () {
+    if (!(prevLauraCord == currentLauraCord)){
+      currentLauraCord = [document.querySelector('player').getAttribute('position').x,document.querySelector('player').getAttribute('position').y];
       
-      if (!(prevLauraCord == currentLauraCord)){
-        currentLauraCord = [document.querySelector('player').getAttribute('position').x,document.querySelector('player').getAttribute('position').y];
+      for (var i = 0; i < data.length; i++){
+        //due to the minor variability in the z axis, it is ignored in favor of simplicity
+        planeCord = [data[i].x*10, data[i].y*10];
+        
+          if (float*distanceFromPoint(planeCord, currentLauraCord) < prevDistance){
+            currentCords = planeCord[i];
+            nearistIndex = i;
+            prevDistance = float*distanceFromPoint(planeCord, currentLauraCord);
 
-        if (float*distanceFromPoint(planeCord, currentLauraCord) < prevDistance){
-          currentCords = planeCord[i];
-          prevDistance = float*distanceFromPoint(planeCord, currentLauraCord);
+          }
+
         }
-
-      }
-      
+      document.querySelector('player').setAttribute('position', currentLauraCord[0] + currentLauraCord[1] + string*data[nearistIndex].z);  
     }
   }
 });
