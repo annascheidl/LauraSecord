@@ -66,18 +66,26 @@
             },
             tick: function(){
 
-              
+              var increment = 0;
+              var second = 0;
+
+              if(increment>89){
+                increment = 0;
+                second +=1;
+              }
+              increment+=1;
+              console.log(second);
               switch(creatureState){
                 case 0:
                   //Initial state and most common
                   //State: Search
-                  if(distanceFromPoint(el.getAttribute('position'), document.querySelector('player').getAttribute('position'))){
-                    console.log()
+                  //If the player is within a certain distance move to the stalking phase
+                  if(distanceFromPoint(this.el.getAttribute('position'), document.querySelector('player').getAttribute('position')) < 50 ){
+                    playerDetected = true;
                   }
-                  playerDetected = true;
 
                   if(playerDetected){
-                    creatureState+=1;
+                    creatureState=1;
                   }
                   break;
                 case 1:
@@ -85,6 +93,9 @@
                   var triggerA = false;
                   var triggerB = false;
 
+                  if(distanceFromPoint(this.el.getAttribute('position'), document.querySelector('player').getAttribute('position')) > ){
+                    playerDetected = true;
+                  }
                   
                   if(triggerA){
                     creatureState = 2;
