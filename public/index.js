@@ -1,12 +1,12 @@
 
-var nearistIndex = -1;
-
 function convertCords(oldVector){
   return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
 }
 
 function SpawnObject(value){
   var newObj;
+  var anObj;
+
   switch(value){
     case 0:
       //rock
@@ -25,15 +25,20 @@ function SpawnObject(value){
       //pineTree
       newObj = document.createElement('a-entity');
       newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
+      newObj.setAttribute('obj-model', {mtl: 'assets/pineTreeFinal.mtl'})
       newObj.setAttribute('scale', {x: 10, y: 10, z: 10})
       document.querySelector('a-scene').appendChild(newObj);
       break;
     case 3:
       //more trees
+
       newObj = document.createElement('a-entity');
-      newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
+      newObj.setAttribute('obj-model', {obj: 'assets/largeTreeFinal.obj'})
+      newObj.setAttribute('obj-model', {mtl: 'assets/largeTreeFinal.mtl'})
       newObj.setAttribute('scale', {x: 10, y: 10, z: 10})
       document.querySelector('a-scene').appendChild(newObj);
+
+    
       break;
     default:
       //empty space
@@ -136,6 +141,7 @@ AFRAME.registerComponent('ground-plane', {
     //console.log(plane.geometry.vertices[500].x +' '+ plane.geometry.vertices[500].z  +' '+ plane.geometry.vertices[500].y);
     //console.log(testBox1.getAttribute('position'));
   },
+ /*
   tick: function () {
     if (!(prevLauraCord == currentLauraCord)){
       currentLauraCord = [document.querySelector('player').getAttribute('position').x,document.querySelector('player').getAttribute('position').y];
@@ -154,7 +160,7 @@ AFRAME.registerComponent('ground-plane', {
         }
       document.querySelector('player').setAttribute('position', currentLauraCord[0] + currentLauraCord[1] + string*data[nearistIndex].z);  
     }
-  }
+  }*/
 });
 //function called from user-gesture click
 const startExperience = function() {

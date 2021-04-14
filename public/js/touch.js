@@ -26,15 +26,3 @@ function gameEnding(gameEnd){
 }
 */
 
-let socket = io();
-
-socket.on('connect', (data) => {
-    document.querySelector('#interactive').addEventListener('click', function() {
-       socket.emit('true'); 
-    });
-
-    socket.on('game_end', data=> {
-        if (data==true) {
-            window.location.replace("/homepage.html");
-    }})
-})

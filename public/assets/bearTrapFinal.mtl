@@ -1,13 +1,12 @@
 # Blender MTL File: 'None'
 # Material Count: 1
 
-newmtl pineTreeTexture
-Ns 0.000000
+newmtl bearTrapTexture
+Ns 654.179236
 Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
+Kd 0.217136 0.217136 0.217136
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
-illum 2
-map_Kd pineTree_lambert2_BaseColor.png
+illum 3

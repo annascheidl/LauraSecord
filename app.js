@@ -62,6 +62,7 @@ io.on("connection", socket => {
     socket.to(curRoom).emit("broadcast", data);
   });
 
+
   socket.on("disconnect", () => {
     console.log('disconnected: ', socket.id, curRoom);
     if (rooms[curRoom]) {

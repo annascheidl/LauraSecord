@@ -80,17 +80,30 @@
       adapter: socketio;
         ">
         <a-assets physics="debug: true" timeout="10000"></a-assets>
-        <a-assets><a-asset-item id="laura-obj" src="/assets/MaleBase.obj"></a-asset-item>
-          <a-asset-item id="lantern-obj" src="/assets/lantern.obj"></a-asset-item>
+        <a-assets>
+        <a-asset-item id="laura-obj" src="/assets/FemaleBase.obj"></a-asset-item>
+        <a-asset-item id="laura-mtl" src="/assets/FemaleBase.mtl"></a-asset-item>-->
+        <a-asset-item id="lantern-obj" src="/assets/lamp.obj"></a-asset-item>
+        <a-asset-item id="lantern-mtl" src="/assets/lamp.mtl"></a-asset-item>
+        <a-asset-item id="cabin-obj" src="/assets/cabin.obj"></a-asset-item>
+        <a-asset-item id="cabin-mtl" src="/assets/cabin.mtl"></a-asset-item>
+        <a-asset-item id="cliff-obj" src="/assets/cliffSegment.obj"></a-asset-item>
+        <a-asset-item id="cliff-mtl" src="/assets/cliffSegment.mtl"></a-asset-item>
 
-        </a-assets>
+        <a-asset-item id="log-obj" src="/assets/logFinal.obj"></a-asset-item>
+        <a-asset-item id="log-mtl" src="/assets/logFinal.mtl"></a-asset-item>
+
+        <a-asset-item id="grass-obj" src="/assets/grassBlade.obj"></a-asset-item>
+        <a-asset-item id="beartrap-obj" src="/assets/bearTrapFinal.obj"></a-asset-item>
+        <a-asset-item id="beartrap-mtl" src="/assets/bearTrapFinal.mtl"></a-asset-item>
+      </a-assets>
 
         <!-- Avatar testing -->
 
         <a-assets>
           <template id="avatar-template">
             <a-entity class="avatar">
-            <a-entity class="interactive" cursor-listener obj-model="obj: #laura-obj;" scale = "0.35 0.35 0.35" position= "-1 -1.6 0" rotation="0 -180 0"></a-entity>
+            <a-entity class="interactive" cursor-listener obj-model="obj: #laura-obj; mtl: #laura-mtl" scale = "1 1 1" position= "-1 -5 0" rotation="0 -180 0"></a-entity>
           </a-entity>
         </template>
         </a-assets>
@@ -107,7 +120,7 @@
           <a-entity cursor="rayOrigin:mouse;"
           raycaster="far:20; interval:200; objects:.interactive"
           ></a-entity>
-          <a-entity class="Lantern" obj-model="obj: #lantern-obj" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
+          <a-entity class="Lantern" obj-model="obj: #lantern-obj; mtl: #lantern-mtl" position= "1 -1.5 -1.2" scale="0.5 0.5 0.5"></a-entity>
             <a-entity light="color: #FFFF00; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" rotation="-90 0 0"></a-entity>
           </a-entity>
 
@@ -116,16 +129,44 @@
           <a-plane ground-plane id="testBed" rotation="-90 0 0" static-body color="#7BC8A4" width="1" height="1" depth="1"></a-plane>
           
       
-          <a-entity environment="preset:starry"></a-entity>
+          <a-entity environment="preset:starry" scale = "5 5 5"></a-entity>
 
-        <a-plane position="0 20.6 -100" rotation="0 0 0" color="#163832" scale="202 50 10"></a-plane>
-        <a-plane position="0 20.6 100" rotation="180 0 0" color="#163832" scale="202 50 10"></a-plane>
-        <a-plane position="100 20.6 0" rotation="180 90 0" color="#163832" scale="202 50 10"></a-plane>
-        <a-plane position="-100 20.6 0" rotation="-180 -90 0" color="#163832" scale="202 50 10"></a-plane>
+          <a-entity class="Cabin" obj-model="obj: #cabin-obj; mtl: #cabin-mtl" position= "0 10 95" rotation="0 90 0" scale="5 5 5"></a-entity>
 
-        </a-scene>
+          <a-entity light="color: #FFFFFF; type:spot; intensity:5; castShadow:true; shadowBias:-0.0005; angle:80; penumbra:1;" position="0 30 90" rotation="-90 0 0"></a-entity>
   
-        
-      </body>
-  </html>
-    </script>
+        <!-- Cliffs better without texture! -->
+        <a-entity class="Cliff" obj-model="obj: #cliff-obj;" scale = "10 120 10" position="-500 10.6 -500" rotation="90 90 0" ></a-entity>
+        <a-entity class="Cliff" obj-model="obj: #cliff-obj;" scale = "10 120 10" position="-500 10.6 500" rotation="90 90 0" ></a-entity>
+        <a-entity class="Cliff" obj-model="obj: #cliff-obj;" scale = "1 150 10" position="-500 10.6 -500" rotation="90 0 0" ></a-entity>
+        <a-entity class="Cliff" obj-model="obj: #cliff-obj;" scale = "1 120 10" position="500 10.6 -500" rotation="90 0 0"></a-entity>
+
+        <a-entity class="logs">
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="0 11.6 50" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="-80 11.6 -200" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="100 11.6 20" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="20 10.6 100" rotation="90 0 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="-40 10.6 300" rotation="90 0 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "15 5 5" position="20 11.6 100" rotation="0 0 90"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="90 11.6 90" rotation="0 90 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="90 11.6 -90" rotation="0 90 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="190 11.6 -190" rotation="0 90 0"></a-entity>
+          <a-entity obj-model="obj: #log-obj; mtl:#log-mtl;" scale = "5 5 5" position="-100 11.6 -90" rotation="0 90 0"></a-entity>
+
+        </a-entity> 
+
+        <a-entity class="bear-traps">
+          <a-entity obj-model="obj: #beartrap-obj; mtl:#beartrap-mtl;" scale = "1 1 1" position="0 15.6 0" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #beartrap-obj; mtl:#beartrap-mtl;" scale = "1 1 1" position="150 15.6 -50" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #beartrap-obj; mtl:#beartrap-mtl;" scale = "1 1 1" position="-50 15.6 -150" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #beartrap-obj; mtl:#beartrap-mtl;" scale = "1 1 1" position="250 15.6 -150" rotation="0 0 0"></a-entity>
+          <a-entity obj-model="obj: #beartrap-obj; mtl:#beartrap-mtl;" scale = "1 1 1" position="150 15.6 100" rotation="0 0 0"></a-entity>
+
+        </a-entity>
+          
+          </a-scene>
+    
+          
+        </body>
+    </html>
+  
