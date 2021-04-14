@@ -16732,7 +16732,7 @@ vn 0.000000 -1.000000 0.000000
 vn 0.000000 -1.000000 0.000000
 s 1
 g pCube3
-usemtl aiStandardSurface1SG
+usemtl aiStandardSurface2SG
 f 35/1/1 36/2/2 29/3/3 30/4/4
 f 39/293/5 40/294/6 43/279/7 44/278/8
 s 3
