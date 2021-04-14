@@ -1,25 +1,8 @@
-var currentLauraCord = [0,0];
-var prevLauraCord = [-1,-1];
-var currentCords = [-1,-1];
-var minDistance = 9999.0;
 
 var nearistIndex = -1;
 
 function convertCords(oldVector){
   return oldVector.x +' ' + oldVector.z +' '+ -oldVector.y;
-}
-
-function getDotProducts(vectorA, vectorB){
-  return  (vectorA[0] * vectorB[0]) + (vectorA[1] * vectorB[1]) + (vectorA[2] * vectorB[2]);
-}
-
-function distanceFromPoint(pointA, pointB){
-  return  Math.sqrt((pointB[0] - pointA[0])**2 +  (pointB[1] - pointA[1])**2);
-}
-
-function nearestPoint(playerPoint){
-  
-  return null;
 }
 
 function SpawnObject(value){
@@ -42,13 +25,14 @@ function SpawnObject(value){
       //pineTree
       newObj = document.createElement('a-entity');
       newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
+      newObj.setAttribute('scale', {x: 10, y: 10, z: 10})
       document.querySelector('a-scene').appendChild(newObj);
       break;
     case 3:
       //more trees
       newObj = document.createElement('a-entity');
       newObj.setAttribute('obj-model', {obj: 'assets/pineTreeFinal.obj'})
-      newObj.setAttribute('scale', {property:'scale', to: '10 10 10'})
+      newObj.setAttribute('scale', {x: 10, y: 10, z: 10})
       document.querySelector('a-scene').appendChild(newObj);
       break;
     default:
@@ -94,7 +78,6 @@ AFRAME.registerComponent('start-experience', {
     //this means we should only start playing ambient music after this button is clicked
     
     
-    
     console.log('scene loaded');
 
     document.querySelector('#height-map');
@@ -104,11 +87,9 @@ AFRAME.registerComponent('start-experience', {
 });
 AFRAME.registerComponent('ground-plane', {
   init: function () {
-    
-
     //get height data from img
     var img = new Image();
-    img.src = 'assets/Heightmap_100.jpg';
+    img.src='assets/Heightmap_100.jpg';
     var data = getHeightData(img);
 
     var envObj;
@@ -133,7 +114,6 @@ AFRAME.registerComponent('ground-plane', {
       
       //this spawns objects
       envObj = SpawnObject(parseInt(Math.random()*70));
-      console.log(data[i]);
       if(!(envObj=='null')){
         envObj.setAttribute('position', convertCords(plane.geometry.vertices[i]));
         

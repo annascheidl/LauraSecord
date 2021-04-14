@@ -1,25 +1,40 @@
-AFRAME.registerComponent('destination-click', {
-    schema: {
-        duration: {type: 'int', default: 20000}
-    },
-    
-       
 
+/*AFRAME.registerComponent('cursor-listener', {
     init: function() {
-        var endGame = false;
-        console.log("Function has occurred");
-        const CONTEXT_AF= this;
-        CONTEXT_AF.destination = document.querySelector('#destination-sphere')
+        var gameEnd = false;
 
-        if (endGame = true) {
-            endGame = false;
-        }
-       
-        CONTEXT_AF.el.addEventListener('click', function() {
-            var endGame = true;
-            console.log("Function worked");
-        })
+    },
+    tick: function () {
+      
+      this.el.addEventListener('click', function (evt) {
+        
+        console.log('I was clicked at ');
+        gameEnd = true;
+        
+        gameEnding(gameEnd)
+
+      });
+    }
+  });
+
+function gameEnding(gameEnd){
+    if (gameEnd==true) {
+        console.log('I was reset');
+        window.location.replace("/homepage.html");
 
     }
+}
+*/
 
+let socket = io();
+
+socket.on('connect', (data) => {
+    document.querySelector('#interactive').addEventListener('click', function() {
+       socket.emit('true'); 
+    });
+
+    socket.on('game_end', data=> {
+        if (data==true) {
+            window.location.replace("/homepage.html");
+    }})
 })
